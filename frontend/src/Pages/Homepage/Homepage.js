@@ -13,7 +13,7 @@ function Homepage() {
       const {data} = await axios.get('http://127.0.0.1:8000/api/recipes/')
       console.log(data)
     }
-    // fetchRecipes();
+    fetchRecipes();
     return () => {
       
     }

@@ -21,6 +21,9 @@ body{
 .flex-ac{
   align-items: center;
 }
+.flex-as{
+  align-items: flex-start;
+}
 
 .center{
   justify-content: center;
