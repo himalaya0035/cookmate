@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Montserrat:wght@400;500;600;700&display=swap');
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: 'Montserrat';
+}
+body{
+  background-color: #faf9fb;
+}
+
+.flex {
+  display: flex;
+}
+.flex-sb{
+  justify-content: space-between;
+}
+.flex-sa {
+  justify-content: space-around;
+}
+.flex-ac{
+  align-items: center;
+}
+
+.center{
+  justify-content: center;
+  align-items: center;
+}
+.pageWrapper{
+  height: 100vh;
+  margin-left: 250px;
+  padding: 40px;
+  padding-top: 30px;
+}

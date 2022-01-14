@@ -1,0 +1,15 @@
+.menu {
+    margin-top:40px;
+}
+.menuItem{
+    display:flex;
+    align-items:center;
+    margin-bottom: 40px;
+}
+.menuItem h4 {
+    color: #6250a6;
+    letter-spacing: 0.5px;
+}
+.menuItem img {
+    margin-right: 15px;
+}

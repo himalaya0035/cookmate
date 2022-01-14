@@ -1,0 +1,30 @@
+.recipeCard{
+    width: 265px;
+    height: 300px;
+    border-radius: 15px;
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.15);
+    background-color: white;
+    margin-bottom: 30px;
+}
+.recipeCard img {
+    width: 258px;
+    height: 180px;
+    margin: 3px;
+    border-radius: 15px;
+    object-fit: cover;
+}
+.recipeCardInfo{
+    padding: 20px;
+    padding-top: 10px;
+}
+.recipeTag{
+    background-color: #6250a6;
+    color: white;
+    border-radius: 15px;
+    padding: 5px 8px;
+    font-size: 10px;
+}
+.recipeTime,.recipeAuthor{
+    font-size: 13px;
+    color: #57565c;
+}

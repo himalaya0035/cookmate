@@ -1,0 +1,8 @@
+.homepageBody{
+    margin-top: 30px;
+}
+.recipeContainer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
