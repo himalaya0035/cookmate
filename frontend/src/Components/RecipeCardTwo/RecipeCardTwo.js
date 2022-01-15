@@ -1,23 +1,22 @@
 import React from "react";
 import "./RecipeCardTwo.css";
 
-function RecipeCardTwo() {
+function RecipeCardTwo({recipe}) {
   return (
     <div className="recipeCardTwo">
-      <div className="flex mainImage">
-        <img src="/dosa.jpg" alt="dosa" draggable="false" />
+      <div className="flex">
+        <img className="mainImage" src={recipe.imageOne ? recipe.imageOne : 'https://via.placeholder.com/424x278?text=No+Image'} alt={recipe.title} draggable="false" />
         <div className="galleryImages">
-          <img src="/dosa.jpg" alt="" />
-          <img src="/dosa.jpg" alt="" />
-          <img src="/dosa.jpg" alt="" />
+          <img src={recipe.imageOne ? recipe.imageOne : 'https://via.placeholder.com/100?text=No+Image'} alt={recipe.title} />
+          <img src={recipe.imageTwo ? recipe.imageTwo : 'https://via.placeholder.com/100?text=No+Image'} alt={recipe.title}/>
+          <img src={recipe.imageThree ? recipe.imageThree : 'https://via.placeholder.com/100?text=No+Image' } alt={recipe.title} />
         </div>
       </div>
       <div className="recipeCardInfo">
         <div className="flex flex-ac flex-sb">
-          <h5 className="recipeTag">Breakfast</h5>
+          <h5 className="recipeTag">{recipe.recipeTime}</h5>
           <p className="recipeTime">
-            <i className="fa fa-clock" style={{ marginRight: "5px" }}></i>Cooking Time : 60
-            mins.
+            <i className="fa fa-clock" style={{ marginRight: "5px" }}></i>Cooking Time : {recipe.cookingTime} mins.
           </p>
         </div>
         <p
@@ -32,12 +31,7 @@ function RecipeCardTwo() {
             fontWeight:"450"
           }}
         >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum ea
-          illo, magni dolore debitis autem magnam excepturi libero, explicabo
-          reiciendis molestias nostrum iste et incidunt quas blanditiis illum, a
-          vel. Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-          Obcaecati assumenda architecto deleniti quas nostrum praesentium debitis 
-          illo est, quibusdam quaerat.
+          {recipe.description}
         </p>
       </div>
     </div>

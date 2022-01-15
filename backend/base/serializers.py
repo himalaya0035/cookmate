@@ -20,10 +20,10 @@ class RecipeSerializer(serializers.ModelSerializer):
 class InstructionSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Instruction
-        fields = ['text']
+        fields = ['id','text']
 
 
 class IngredientSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Ingredient
-        fields = ['name','quantity']
+        fields = ['id','name','quantity']

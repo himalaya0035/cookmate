@@ -1,22 +1,43 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import "./RecipePage.css";
 import RecipeCardTwo from "../../Components/RecipeCardTwo/RecipeCardTwo";
 import HeaderWithBackButton from "../../Components/HeaderWithBackButton/HeaderWithBackButton";
 import IngredientItem from "../../Components/IngredientItem/IngredientItem";
+import axios from 'axios'
+import { useParams } from "react-router-dom";
 
 function RecipePage() {
+  const [recipe, setRecipe] = useState('');
+  const [ingredients, setIngredients] = useState([])
+  const [instructions, setInstructions] = useState([])
+  const {id} = useParams();
+  useEffect(() => {
+    
+    async function fetchRecipe(){
+      const {data} = await axios.get('http://127.0.0.1:8000/api/recipes/' + id)
+      setRecipe(data)
+      setInstructions(data.instructions)
+      setIngredients(data.ingredients)
+    }
+    
+    fetchRecipe();
+    return () => {
+    
+    }
+  }, [id])
+  
   return (
     <div>
       <div className="recipePageBody">
         <HeaderWithBackButton
-          textHeading={"Dosa Served with Sambhar and Coconut Chutney"}
+          textHeading={recipe.title}
         />
         <div className="flex" style={{ marginTop: "40px" }}>
           <div
             className="recipeInfoAndIngredients"
             style={{ marginRight: "30px" }}
           >
-            <RecipeCardTwo />
+            <RecipeCardTwo recipe = {recipe} />
             <div className="flex flex-as">
               <div className="ingredients">
                 <h3 style={{ marginBottom: "15px", color: "#6250a6" }}>
@@ -29,17 +50,13 @@ function RecipePage() {
                   </h4>
                 </div>
                 <div className="ingredientsList">
-                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
-                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
-                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
-                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
-                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
+                  {ingredients.map((ingredient) => <IngredientItem key={ingredient.id} itemName={ingredient.name} quanity={ingredient.quantity} />)}
                 </div>
               </div>
               <div className="noOfPeople flex center">
                 <img src="/peopleEatingIcon.svg" alt="" width={100} />
                 <h4>No. of Serving</h4>
-                <h4>x2</h4>
+                <h4>x{recipe.noOfPeople}</h4>
               </div>
             </div>
           </div>
@@ -56,55 +73,7 @@ function RecipePage() {
               </div>
             </div>
             <div className="instructionsList">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>Lorem ipsum dolor sit amet consectetur adipommodi?</p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Adipisci, iste iusto quas eligendi corporis id eius corrupti
-                temporibus velit? Molestias harum voluptatibus veritatis
-                explicabo ut velit deserunt, saepe sit commodi?
-              </p>
+              {instructions.map(instruction => <p key={instruction.id}>{instruction.text}</p>)}
             </div>
           </div>
         </div>

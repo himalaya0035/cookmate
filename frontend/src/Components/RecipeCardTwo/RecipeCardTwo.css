@@ -6,8 +6,8 @@
     background-color: white;
     margin-bottom: 20px;
 }
-.mainImage > img {
-    width: 440px;
+.mainImage {
+    width: 425px;
     height: 278px;
     margin: 4px;
     border-radius: 15px;

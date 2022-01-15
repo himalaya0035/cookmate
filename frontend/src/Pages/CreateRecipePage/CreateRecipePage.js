@@ -68,6 +68,26 @@ function CreateRecipePage() {
     });
   };
 
+  const handleChangeTwo = (e) => {
+    e.preventDefault();
+    const index = e.target.id;
+    setIngredients((s) => {
+      const newArr = s.slice();
+      newArr[index].itemName = e.target.value;
+      return newArr;
+    });
+  };
+
+  const handleChangeThree = (e) => {
+    e.preventDefault();
+    const index = e.target.id;
+    setIngredients((s) => {
+      const newArr = s.slice();
+      newArr[index].itemName = e.target.value;
+      return newArr;
+    });
+  };
+
   const showFirstImage = (e) => {
     console.log(e.target.value);
     const reader = new FileReader();
