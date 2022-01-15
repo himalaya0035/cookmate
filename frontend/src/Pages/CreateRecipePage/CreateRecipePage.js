@@ -27,8 +27,8 @@ function CreateRecipePage() {
   const ingredientsArray = [
     {
       id: 1,
-      itemName:"",
-      quantity:"",
+      itemName: "",
+      quantity: "",
     },
   ];
 
@@ -51,11 +51,12 @@ function CreateRecipePage() {
       return [
         ...s,
         {
-          itemName:"",
-          quantity:"",
+          itemName: "",
+          quantity: "",
         },
       ];
     });
+    console.log(ingredients);
   };
 
   const handleChange = (e) => {
@@ -83,7 +84,7 @@ function CreateRecipePage() {
     const index = e.target.id;
     setIngredients((s) => {
       const newArr = s.slice();
-      newArr[index].itemName = e.target.value;
+      newArr[index].quantity = e.target.value;
       return newArr;
     });
   };
@@ -189,11 +190,38 @@ function CreateRecipePage() {
               spellCheck="false"
               placeholder="A Short Description of the recipe"
             ></textarea>
-            <div className="flex flex-as aisehi">
-              <div className="addIngredientsList">
-                jskfhjkfhfkehk
+            <div className="flex">
+              <div className="addIngredientsList">     
+                    {ingredients.map((item, i) => {
+                    return (
+                      <div className="flex">
+                        <input
+                          onChange={handleChangeTwo}
+                          value={item.itemName}
+                          id={i}
+                          type="text"
+                          style={{ width: "175px",marginRight:"10px" }}
+                          placeholder="Item Name"
+                        />
+                        <input
+                          onChange={handleChangeThree}
+                          value={item.quantity}
+                          id={i}
+                          type="text"
+                          style={{ width: "175px" }}
+                          placeholder="Quantity"
+                        />
+                      </div>
+                    );
+                  })}
+              
+                <Button
+                  icon={"fa fa-plus"}
+                  onClickFunction={addIngredient}
+                  text={"Add Ingredient"}
+                />
               </div>
-              <div>
+              <div className="aisehi">
                 <input
                   type="number"
                   required
@@ -214,6 +242,23 @@ function CreateRecipePage() {
               </div>
             </div>
           </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div className="addInstructionAndIngredients">
             {instructions.map((item, i) => {
               return (
@@ -230,7 +275,11 @@ function CreateRecipePage() {
                 </>
               );
             })}
-            <Button icon={'fa fa-plus'} onClickFunction={addInstruction} text={"Add Instruction"} />
+            <Button
+              icon={"fa fa-plus"}
+              onClickFunction={addInstruction}
+              text={"Add Instruction"}
+            />
           </div>
         </div>
       </div>
