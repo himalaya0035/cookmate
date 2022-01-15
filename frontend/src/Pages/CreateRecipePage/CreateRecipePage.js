@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "../../Components/Button/Button";
 import HeaderWithBackButton from "../../Components/HeaderWithBackButton/HeaderWithBackButton";
 import "./CreateRecipePage.css";
+import axios from 'axios'
 
 function CreateRecipePage() {
   const [title, setTitle] = useState("");
@@ -118,6 +119,22 @@ function CreateRecipePage() {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
+
+  const createRecipe = async () => {
+    let data = {
+      title,
+      desc,
+      cookingTime,
+      noOfPeople,
+      firstImage,
+      secondImage,
+      thirdImage,
+      instructions,
+      ingredients
+    }
+    console.log(data)
+    const request = await axios.post('http://127.0.0.1:8000/api/recipe/create',data)
+  }
 
   return (
     <div>
@@ -242,23 +259,6 @@ function CreateRecipePage() {
               </div>
             </div>
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <div className="addInstructionAndIngredients">
             {instructions.map((item, i) => {
               return (
@@ -280,8 +280,10 @@ function CreateRecipePage() {
               onClickFunction={addInstruction}
               text={"Add Instruction"}
             />
+           
           </div>
         </div>
+        <button style={{position:"fixed",top:"30px",right:"18px",padding:"10px 20px",color:"white",marginRight:"15px",fontSize:"14px", fontWeight:"500", letterSpacing:"0.5px" , borderRadius:"20px",border:"none",background:"#6250a6", boxShadow:"1px 2px 5px 0px rgba(0,0,0,0.15)"}} onClick={createRecipe}>Create Recipe</button>
       </div>
     </div>
   );

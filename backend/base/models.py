@@ -23,6 +23,8 @@ class Recipe(models.Model):
     recipeTime = models.CharField(max_length=20,choices=recipeTypes,default='Breakfast')
     noOfPeople = models.IntegerField(null=True,blank=True,default=2)
     # created_at = models.DateTimeField(auto_now_add=True)
+
+
     
 class Ingredient(models.Model):
     name = models.CharField(max_length=100,null=False)

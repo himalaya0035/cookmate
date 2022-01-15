@@ -7,4 +7,5 @@ urlpatterns = [
     path('',views.getRoutes,name="routes"),
     path('recipes/',views.getRecipes,name="recipes"),
     path('recipes/<str:pk>',views.getRecipe,name='recipe'),
+    path('recipe/create',views.createRecipe,name="createRecipe")
 ]

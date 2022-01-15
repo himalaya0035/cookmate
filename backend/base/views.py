@@ -1,7 +1,8 @@
-from dis import Instruction
 from turtle import title
-from django.shortcuts import render
+from urllib.request import Request
+from wsgiref.util import request_uri
 from rest_framework.decorators import api_view
+from rest_framework import status
 from rest_framework.response import Response
 from .models import Ingredient, Recipe,Instruction
 from .serializers import RecipesSerializer,RecipeSerializer,InstructionSerialiser,IngredientSerialiser
@@ -10,7 +11,7 @@ from .serializers import RecipesSerializer,RecipeSerializer,InstructionSerialise
 def getRoutes(request):
     routes = [
         '/api/recipes',
-        '/api/recipe/<id>',
+        '/api/recipes/<id>',
         '/api/recipe/create',
     ]
     return Response(routes)
@@ -20,7 +21,8 @@ def getRoutes(request):
 def getRecipes(request):
     recipes = Recipe.objects.all()
     serializer = RecipesSerializer(recipes,many=True)
-    return Response(serializer.data)
+    return Response(serializer.data,status=status.HTTP_200_OK)
+
 
 @api_view(['GET'])
 def getRecipe(request,pk):
@@ -33,4 +35,20 @@ def getRecipe(request,pk):
     returndata = recipe_serializer.data
     returndata["instructions"] = instructions_serializer.data
     returndata["ingredients"] = ingredients_serializer.data
-    return Response(returndata)
+    return Response(returndata,status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def createRecipe(request):
+    recipedata = request.data
+    instructions = recipedata["instructions"]
+    ingredients = recipedata["ingredients"]
+    print(recipedata)
+    recipe = Recipe(title=recipedata["title"], description=recipedata["desc"],cookingTime=recipedata["cookingTime"],noOfPeople=recipedata["noOfPeople"])
+    recipe.save()
+    for i in instructions:
+        instruction = Instruction(text=i["value"],recipe=recipe)
+        instruction.save()
+
+
+    return Response({'request recieved'},status=status.HTTP_201_CREATED)
