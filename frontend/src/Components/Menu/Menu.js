@@ -5,7 +5,7 @@ function Menu() {
     return (
         <div className='menu'>
             <div className="menuItem">
-                <img src="/overviewIcon.svg" alt="recipe icon" width={25} />
+                <img src="/overviewIcon.svg" alt="Overview icon" width={25} />
                  <h4>Overview</h4>
             </div>
             <div className="menuItem">
@@ -13,15 +13,15 @@ function Menu() {
                  <h4>Recipes</h4>
             </div>
             <div className="menuItem">
-                <img src="/favoriteIcon.svg" alt="recipe icon" width={25} />
+                <img src="/favoriteIcon.svg" alt="Favourite icon" width={25} />
                  <h4>Favorite</h4>
             </div>
             <div className="menuItem">
-                <img src="/profileIcon.svg" alt="recipe icon" width={25} />
-                 <h4>Profile</h4>
+                <img src="/logoutIcon.svg" alt="Logout icon" width={25} />
+                 <h4>Logout</h4>
             </div>
             <div className="menuItem">
-                <img src="/settingsIcon.svg" alt="recipe icon" width={25} />
+                <img src="/settingsIcon.svg" alt="Settings icon" width={25} />
                  <h4>Settings</h4>
             </div>   
         </div>

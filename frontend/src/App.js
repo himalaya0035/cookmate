@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RecipePage from './Pages/RecipePage/RecipePage';
 import Layout from './Layout'
 import CreateRecipePage from './Pages/CreateRecipePage/CreateRecipePage';
+import LoginAndRegister from './Pages/LoginAndRegister/LoginAndRegister';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <CreateRecipePage/>
             </Layout>
           } />
+          <Route path='/login' element = {<LoginAndRegister/>} />
         </Routes>
       </Router>
     </div>
