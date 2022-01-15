@@ -1,28 +1,16 @@
 import React from "react";
-import Button from "../../Components/Button/Button";
 import "./RecipePage.css";
-import { useNavigate } from "react-router-dom";
 import RecipeCardTwo from "../../Components/RecipeCardTwo/RecipeCardTwo";
+import HeaderWithBackButton from "../../Components/HeaderWithBackButton/HeaderWithBackButton";
+import IngredientItem from "../../Components/IngredientItem/IngredientItem";
 
 function RecipePage() {
-  const navigate = useNavigate();
-  const backPage = () => {
-    navigate(-1);
-  };
   return (
     <div>
       <div className="recipePageBody">
-        <div className="flex flex-sb flex-ac" style={{ marginBottom: "20px" }}>
-          <div className="flex flex-ac">
-            <Button
-              onClickFunction={backPage}
-              text={"Back"}
-              icon={"fa fa-arrow-left"}
-            />
-            <h3>Dosa served with sambhar and coconut chutney</h3>
-          </div>
-          <h3>Himalaya Gupta</h3>
-        </div>
+        <HeaderWithBackButton
+          textHeading={"Dosa Served with Sambhar and Coconut Chutney"}
+        />
         <div className="flex" style={{ marginTop: "40px" }}>
           <div
             className="recipeInfoAndIngredients"
@@ -41,38 +29,11 @@ function RecipePage() {
                   </h4>
                 </div>
                 <div className="ingredientsList">
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
-                  <div className="ingredientItem flex flex-sb flex-ac">
-                    <p className="itemName">Rice</p>
-                    <p className="itemQuantity">250 Grams</p>
-                  </div>
+                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
+                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
+                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
+                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
+                  <IngredientItem itemName={"Rice"} quanity={"250 Grams"} />
                 </div>
               </div>
               <div className="noOfPeople flex center">

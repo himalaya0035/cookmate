@@ -3,6 +3,7 @@ import Homepage from './Pages/Homepage/Homepage';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RecipePage from './Pages/RecipePage/RecipePage';
 import Layout from './Layout'
+import CreateRecipePage from './Pages/CreateRecipePage/CreateRecipePage';
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
             <RecipePage/>
           </Layout>
         }/>
+          <Route path='/recipe/create' element = {
+            <Layout isHeader={false}>
+              <CreateRecipePage/>
+            </Layout>
+          } />
         </Routes>
       </Router>
     </div>
