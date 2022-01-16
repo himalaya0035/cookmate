@@ -19,18 +19,7 @@ function RecipeCardTwo({recipe}) {
             <i className="fa fa-clock" style={{ marginRight: "5px" }}></i>Cooking Time : {recipe.cookingTime} mins.
           </p>
         </div>
-        <p
-          style={{
-            marginTop: "10px",
-            lineClamp: "4",
-            display: "-webkit-box",
-            "WebkitLineClamp": "4",
-            "WebkitBoxOrient": "vertical",
-            overflow: "hidden",
-            fontSize:"14px",
-            fontWeight:"450"
-          }}
-        >
+        <p id="recipeDesc">
           {recipe.description}
         </p>
       </div>

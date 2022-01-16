@@ -1,4 +1,6 @@
 import email
+import json
+import re
 from turtle import title
 from urllib.request import Request
 from wsgiref.util import request_uri
@@ -81,22 +83,25 @@ def getRecipe(request,pk):
     instructions_serializer = InstructionSerialiser(instructions,many=True)
     ingredients_serializer = IngredientSerialiser(ingredients,many=True)
     returndata = recipe_serializer.data
+    author = User.objects.get(id=returndata['author'])
+    user_serializer = UserSerializer(author,many=False)
     returndata["instructions"] = instructions_serializer.data
     returndata["ingredients"] = ingredients_serializer.data
+    returndata['authorName'] = user_serializer.data['first_name'] + ' ' + user_serializer.data['last_name']
     return Response(returndata,status=status.HTTP_200_OK)
 
-# @permission_classes([IsAuthenticated])
+
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def createRecipe(request):
     recipedata = request.data
-    instructions = recipedata["instructions"]
-    ingredients = recipedata["ingredients"]
+    instructions = json.loads(recipedata["instructions"])
+    ingredients =  json.loads(recipedata["ingredients"])
     print(recipedata)
-    recipe = Recipe(title=recipedata["title"], description=recipedata["desc"],cookingTime=recipedata["cookingTime"],noOfPeople=recipedata["noOfPeople"])
+    recipe = Recipe(title=recipedata["title"],author=request.user,imageOne=recipedata['imageOne'],imageTwo=recipedata['imageTwo'],imageThree=recipedata['imageThree'] ,description=recipedata["desc"],cookingTime=recipedata["cookingTime"],noOfPeople=recipedata["noOfPeople"])
     recipe.save()
     for i in instructions:
         instruction = Instruction(text=i["value"],recipe=recipe)
         instruction.save()
-
-
+ 
     return Response({'request recieved'},status=status.HTTP_201_CREATED)

@@ -27,7 +27,7 @@ function Homepage() {
           <div className="topRecipesOfTheDay">
             <h3 style={{ marginBottom: "20px" }}>Top Recipes</h3>
             <div className="recipeContainer">
-              {recipes.map(recipe => <RecipeCard recipe={recipe} />)}
+              {recipes.map(recipe => <RecipeCard key={recipe.id} recipe={recipe} />)}
             </div>
           </div>
         </div>
@@ -37,16 +37,3 @@ function Homepage() {
 
 export default Homepage;
 
-{/* <div className="topRecipesOfTheDay">
-<h3 style={{ marginBottom: "20px" }}>Based on the type of food you like</h3>
-<div className="recipeContainer">
-  <Swiper
-    spaceBetween={15}
-    slidesPerView={4.2}
-    onSlideChange={() => ""}
-    onSwiper={(swiper) => ""}
-  >
-   
-  </Swiper>
-</div>
-</div> */}

@@ -18,6 +18,9 @@ function CreateRecipePage() {
   const [thirdImage, setThirdImage] = useState(
     "https://via.placeholder.com/200"
   );
+  const [imageOne, setImageOne] = useState('')
+  const [imageTwo, setImageTwo] = useState('')
+  const [imageThree, setImageThree] = useState('')
   const instructionsArray = [
     {
       id: 1,
@@ -95,17 +98,19 @@ function CreateRecipePage() {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        console.log(reader.result);
         setFirstImage(reader.result);
+        setImageOne(e.target.files[0])
       }
     };
     reader.readAsDataURL(e.target.files[0]);
+    
   };
   const showSecondImage = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         setSecondImage(reader.result);
+        setImageTwo(e.target.files[0])
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -115,25 +120,28 @@ function CreateRecipePage() {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setThirdImage(reader.result);
+        setImageThree(e.target.files[0])
       }
     };
     reader.readAsDataURL(e.target.files[0]);
   };
 
   const createRecipe = async () => {
-    let data = {
-      title,
-      desc,
-      cookingTime,
-      noOfPeople,
-      firstImage,
-      secondImage,
-      thirdImage,
-      instructions,
-      ingredients
-    }
-    console.log(data)
-    const request = await axios.post('http://127.0.0.1:8000/api/recipe/create',data)
+    const uploadData = new FormData()
+    uploadData.append('title',title)
+    uploadData.append('desc',desc)
+    uploadData.append('cookingTime',cookingTime)
+    uploadData.append('noOfPeople',noOfPeople)
+    uploadData.append('imageOne',imageOne,imageOne.name)
+    uploadData.append('imageTwo',imageTwo,imageTwo.name)
+    uploadData.append('imageThree',imageThree,imageThree.name)
+    uploadData.append('instructions',JSON.stringify(instructions))
+    uploadData.append('ingredients',JSON.stringify(ingredients))
+    const config = {
+      headers: { Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('userData')).access}` }
+    };
+    const request = await axios.post('http://127.0.0.1:8000/api/recipe/create',uploadData,config);
+    window.location.href = '/'
   }
 
   return (
