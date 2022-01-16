@@ -1,8 +1,8 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../Components/Button/Button";
 import HeaderWithBackButton from "../../Components/HeaderWithBackButton/HeaderWithBackButton";
 import "./CreateRecipePage.css";
-import axios from 'axios'
+import axios from "axios";
 
 function CreateRecipePage() {
   const [title, setTitle] = useState("");
@@ -18,9 +18,9 @@ function CreateRecipePage() {
   const [thirdImage, setThirdImage] = useState(
     "https://via.placeholder.com/200"
   );
-  const [imageOne, setImageOne] = useState('')
-  const [imageTwo, setImageTwo] = useState('')
-  const [imageThree, setImageThree] = useState('')
+  const [imageOne, setImageOne] = useState("");
+  const [imageTwo, setImageTwo] = useState("");
+  const [imageThree, setImageThree] = useState("");
   const instructionsArray = [
     {
       id: 1,
@@ -40,14 +40,12 @@ function CreateRecipePage() {
   const [ingredients, setIngredients] = useState(ingredientsArray);
 
   useEffect(() => {
-    if (!window.localStorage.getItem('userData')){
-      window.location.href = '/login'
+    if (!window.localStorage.getItem("userData")) {
+      window.location.href = "/login";
     }
-    return () => {
-      
-    }
-  }, [])
-  
+    return () => {};
+  }, []);
+
   const addInstruction = () => {
     setInstructions((s) => {
       return [
@@ -108,18 +106,17 @@ function CreateRecipePage() {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setFirstImage(reader.result);
-        setImageOne(e.target.files[0])
+        setImageOne(e.target.files[0]);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-    
   };
   const showSecondImage = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
         setSecondImage(reader.result);
-        setImageTwo(e.target.files[0])
+        setImageTwo(e.target.files[0]);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -129,36 +126,40 @@ function CreateRecipePage() {
     reader.onload = () => {
       if (reader.readyState === 2) {
         setThirdImage(reader.result);
-        setImageThree(e.target.files[0])
+        setImageThree(e.target.files[0]);
       }
     };
     reader.readAsDataURL(e.target.files[0]);
   };
 
   const createRecipe = async () => {
-    const uploadData = new FormData()
-    uploadData.append('title',title)
-    uploadData.append('desc',desc)
-    uploadData.append('cookingTime',cookingTime)
-    uploadData.append('noOfPeople',noOfPeople)
-    uploadData.append('imageOne',imageOne,imageOne.name)
-    uploadData.append('imageTwo',imageTwo,imageTwo.name)
-    uploadData.append('imageThree',imageThree,imageThree.name)
-    uploadData.append('instructions',JSON.stringify(instructions))
-    uploadData.append('ingredients',JSON.stringify(ingredients))
-    const userData = JSON.parse(window.localStorage.getItem('userData'))
+    const uploadData = new FormData();
+    uploadData.append("title", title);
+    uploadData.append("desc", desc);
+    uploadData.append("cookingTime", cookingTime);
+    uploadData.append("noOfPeople", noOfPeople);
+    uploadData.append("imageOne", imageOne, imageOne.name);
+    uploadData.append("imageTwo", imageTwo, imageTwo.name);
+    uploadData.append("imageThree", imageThree, imageThree.name);
+    uploadData.append("instructions", JSON.stringify(instructions));
+    uploadData.append("ingredients", JSON.stringify(ingredients));
+    const userData = JSON.parse(window.localStorage.getItem("userData"));
     let authenticationToken;
-    if (userData.hasOwnProperty('token')){
-      authenticationToken = userData.token
-    }else{
-      authenticationToken = userData.access
+    if (userData.hasOwnProperty("token")) {
+      authenticationToken = userData.token;
+    } else {
+      authenticationToken = userData.access;
     }
     const config = {
-      headers: { Authorization: `Bearer ${authenticationToken}` }
+      headers: { Authorization: `Bearer ${authenticationToken}` },
     };
-    const request = await axios.post('http://127.0.0.1:8000/api/recipe/create',uploadData,config);
-    window.location.href = '/'
-  }
+    const request = await axios.post(
+      "http://127.0.0.1:8000/api/recipe/create",
+      uploadData,
+      config
+    );
+    window.location.href = "/";
+  };
 
   return (
     <div>
@@ -232,30 +233,30 @@ function CreateRecipePage() {
               placeholder="A Short Description of the recipe"
             ></textarea>
             <div className="flex">
-              <div className="addIngredientsList">     
-                    {ingredients.map((item, i) => {
-                    return (
-                      <div className="flex">
-                        <input
-                          onChange={handleChangeTwo}
-                          value={item.itemName}
-                          id={i}
-                          type="text"
-                          style={{ width: "175px",marginRight:"10px" }}
-                          placeholder="Item Name"
-                        />
-                        <input
-                          onChange={handleChangeThree}
-                          value={item.quantity}
-                          id={i}
-                          type="text"
-                          style={{ width: "175px" }}
-                          placeholder="Quantity"
-                        />
-                      </div>
-                    );
-                  })}
-              
+              <div className="addIngredientsList">
+                {ingredients.map((item, i) => {
+                  return (
+                    <div className="flex">
+                      <input
+                        onChange={handleChangeTwo}
+                        value={item.itemName}
+                        id={i}
+                        type="text"
+                        style={{ width: "175px", marginRight: "10px" }}
+                        placeholder="Item Name"
+                      />
+                      <input
+                        onChange={handleChangeThree}
+                        value={item.quantity}
+                        id={i}
+                        type="text"
+                        style={{ width: "175px" }}
+                        placeholder="Quantity"
+                      />
+                    </div>
+                  );
+                })}
+
                 <Button
                   icon={"fa fa-plus"}
                   onClickFunction={addIngredient}
@@ -304,10 +305,28 @@ function CreateRecipePage() {
               onClickFunction={addInstruction}
               text={"Add Instruction"}
             />
-           
           </div>
         </div>
-        <button style={{position:"fixed",top:"30px",right:"18px",padding:"10px 20px",color:"white",marginRight:"15px",fontSize:"14px", fontWeight:"500", letterSpacing:"0.5px" , borderRadius:"20px",border:"none",background:"#6250a6", boxShadow:"1px 2px 5px 0px rgba(0,0,0,0.15)"}} onClick={createRecipe}>Create Recipe</button>
+        <button
+          style={{
+            position: "fixed",
+            top: "30px",
+            right: "18px",
+            padding: "10px 20px",
+            color: "white",
+            marginRight: "15px",
+            fontSize: "14px",
+            fontWeight: "500",
+            letterSpacing: "0.5px",
+            borderRadius: "20px",
+            border: "none",
+            background: "#6250a6",
+            boxShadow: "1px 2px 5px 0px rgba(0,0,0,0.15)",
+          }}
+          onClick={createRecipe}
+        >
+          Create Recipe
+        </button>
       </div>
     </div>
   );

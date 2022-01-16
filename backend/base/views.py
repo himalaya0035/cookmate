@@ -1,9 +1,4 @@
-import email
 import json
-import re
-from turtle import title
-from urllib.request import Request
-from wsgiref.util import request_uri
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
@@ -17,19 +12,6 @@ from django.contrib.auth.hashers import make_password
 
 
 
-
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        token['username'] = user.username
-        print(token)
-        return token
-
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
-
 @api_view(['GET'])
 def getRoutes(request):
     print(request.user)
@@ -39,6 +21,18 @@ def getRoutes(request):
         '/api/recipe/create',
     ]
     return Response(routes)
+
+
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        print(token) 
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 
 @api_view(['POST'])
@@ -59,6 +53,7 @@ def registerUser(request):
         return Response(message,status=status.HTTP_400_BAD_REQUEST)    
     
 
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getUser(request):
@@ -77,19 +72,28 @@ def getRecipes(request):
 
 @api_view(['GET'])
 def getRecipe(request,pk):
-    recipe = Recipe.objects.get(id=pk)
-    instructions = Instruction.objects.filter(recipe=recipe)
-    ingredients = Ingredient.objects.filter(recipe=recipe)
-    recipe_serializer = RecipeSerializer(recipe,many=False)
-    instructions_serializer = InstructionSerialiser(instructions,many=True)
-    ingredients_serializer = IngredientSerialiser(ingredients,many=True)
-    returndata = recipe_serializer.data
-    author = User.objects.get(id=returndata['author'])
-    user_serializer = UserSerializer(author,many=False)
-    returndata["instructions"] = instructions_serializer.data
-    returndata["ingredients"] = ingredients_serializer.data
-    returndata['authorName'] = user_serializer.data['first_name'] + ' ' + user_serializer.data['last_name']
-    return Response(returndata,status=status.HTTP_200_OK)
+    try:
+        recipe = Recipe.objects.get(id=pk)
+        instructions = Instruction.objects.filter(recipe=recipe)
+        ingredients = Ingredient.objects.filter(recipe=recipe)
+
+        recipe_serializer = RecipeSerializer(recipe,many=False)
+        instructions_serializer = InstructionSerialiser(instructions,many=True)
+        ingredients_serializer = IngredientSerialiser(ingredients,many=True)
+
+        returndata = recipe_serializer.data
+        author = User.objects.get(id=returndata['author'])
+        user_serializer = UserSerializer(author,many=False)
+
+        returndata["instructions"] = instructions_serializer.data
+        returndata["ingredients"] = ingredients_serializer.data
+        returndata['authorName'] = user_serializer.data['first_name'] + ' ' + user_serializer.data['last_name']
+
+        return Response(returndata,status=status.HTTP_200_OK)
+    
+    except:
+        return Response({'details':"Recipe Not Found"},status=status.HTTP_404_NOT_FOUND)
+
 
 
 @api_view(['POST'])
@@ -98,9 +102,10 @@ def createRecipe(request):
     recipedata = request.data
     instructions = json.loads(recipedata["instructions"])
     ingredients =  json.loads(recipedata["ingredients"])
-    print(recipedata)
+
     recipe = Recipe(title=recipedata["title"],author=request.user,imageOne=recipedata['imageOne'],imageTwo=recipedata['imageTwo'],imageThree=recipedata['imageThree'] ,description=recipedata["desc"],cookingTime=recipedata["cookingTime"],noOfPeople=recipedata["noOfPeople"])
     recipe.save()
+    
     for i in instructions:
         instruction = Instruction(text=i["value"],recipe=recipe)
         instruction.save()
