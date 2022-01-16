@@ -35,7 +35,7 @@
 }
 
 .ingredientsList{
-  height: 100px;
+  height: 90px;
   overflow-y: auto;
   padding-right: 10px;
 }
