@@ -15,6 +15,10 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
+
+
+
+
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
@@ -26,6 +30,15 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
+@api_view(['GET'])
+def getRoutes(request):
+    print(request.user)
+    routes = [
+        '/api/recipes',
+        '/api/recipes/<id>',
+        '/api/recipe/create',
+    ]
+    return Response(routes)
 
 
 @api_view(['POST'])
@@ -47,23 +60,11 @@ def registerUser(request):
     
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getUser(request):
     user = request.user
     serializer = UserSerializer(user,many=False)
     return Response(serializer.data)
-
-
-@api_view(['GET'])
-def getRoutes(request):
-    print(request.user)
-    routes = [
-        '/api/recipes',
-        '/api/recipes/<id>',
-        '/api/recipe/create',
-    ]
-    return Response(routes)
-
-
 
 
 
@@ -104,4 +105,8 @@ def createRecipe(request):
         instruction = Instruction(text=i["value"],recipe=recipe)
         instruction.save()
  
+    for i in ingredients:
+        ingredient = Ingredient(name=i["itemName"],quantity=i["quantity"],recipe=recipe)
+        ingredient.save()
+
     return Response({'request recieved'},status=status.HTTP_201_CREATED)

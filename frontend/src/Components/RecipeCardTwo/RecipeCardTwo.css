@@ -12,13 +12,14 @@
     margin: 4px;
     border-radius: 15px;
     object-fit: cover;
+    flex: 4;
 }
 .galleryImages img {
     width: 114px;
     height: 89px;
     border-radius: 15px;
     object-fit: cover;
-    /* margin-top: 3px; */
+    flex: 1;
 }
 .galleryImages img:first-of-type{
     margin-top: 4px;
@@ -33,4 +34,8 @@
     display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+.createGallery{
+    display: grid;
+    grid-template-columns:repeat(2,3fr);
 }

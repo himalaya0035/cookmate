@@ -46,14 +46,14 @@ function LoginAndRegister() {
           <div className="front">
             <img src="dosa.jpg" alt="" />
             <div className="text">
-              <span className="text-1">Every new friend is a <br /> new adventure</span>
+              <span className="text-1">No one is born a great cook <br /> one learns by doing</span>
               <span className="text-2">Let's get connected</span>
             </div>
           </div>
           <div className="back">
             <img className="backImg" src="dosa.jpg" alt="" />
             <div className="text">
-              <span className="text-1">Complete miles of journey <br /> with one step</span>
+              <span className="text-1">Keep Calm <br /> and cook on !</span>
               <span className="text-2">Let's get started</span>
             </div>
           </div>

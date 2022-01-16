@@ -4,7 +4,7 @@ import "./RecipeCardTwo.css";
 function RecipeCardTwo({recipe}) {
   return (
     <div className="recipeCardTwo">
-      <div className="flex">
+      <div className="createGallery">
         <img className="mainImage" src={recipe.imageOne ? recipe.imageOne : 'https://via.placeholder.com/424x278?text=No+Image'} alt={recipe.title} draggable="false" />
         <div className="galleryImages">
           <img src={recipe.imageOne ? recipe.imageOne : 'https://via.placeholder.com/100?text=No+Image'} alt={recipe.title} />

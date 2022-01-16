@@ -1,5 +1,6 @@
 import imp
 from pyexpat import model
+import re
 from statistics import mode
 from turtle import title
 from django.db import models
@@ -29,7 +30,7 @@ class Recipe(models.Model):
 class Ingredient(models.Model):
     name = models.CharField(max_length=100,null=False)
     quantity = models.CharField(max_length=20,null=False)
-    recipe = models.ManyToManyField(Recipe)
+    recipe = models.ForeignKey(Recipe,on_delete=models.CASCADE,null=True)
 
 class Instruction(models.Model):
     text = models.TextField(null=False,blank=False)

@@ -13,6 +13,7 @@ function Homepage() {
       const {data} = await axios.get('http://127.0.0.1:8000/api/recipes/')
       setRecipes(data)
       console.log(recipes)
+      window.localStorage.setItem('allRecipies',JSON.stringify(data))
     }
     fetchRecipes();
     return () => {

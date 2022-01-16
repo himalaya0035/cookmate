@@ -32,6 +32,7 @@ function RecipePage() {
         <HeaderWithBackButton
           textHeading={recipe.title}
         />
+        <p style={{position:"absolute",top:"30px",right:"40px",color:"black"}}>Recipe By : <span style={{color:"#fb9300",fontWeight:"bold"}}>{recipe.authorName}</span> </p>
         <div className="flex" style={{ marginTop: "40px" }}>
           <div
             className="recipeInfoAndIngredients"

@@ -16,9 +16,9 @@ function Menu() {
                 <img src="/favoriteIcon.svg" alt="Favourite icon" width={25} />
                  <h4>Favorite</h4>
             </div>
-            <div className="menuItem">
-                <img src="/logoutIcon.svg" alt="Logout icon" width={25} />
-                 <h4>Logout</h4>
+            <div className="menuItem" >
+                <img src="/profileIcon.svg" alt="Profile Icon" width={25} />
+                 <h4>Profile</h4>
             </div>
             <div className="menuItem">
                 <img src="/settingsIcon.svg" alt="Settings icon" width={25} />

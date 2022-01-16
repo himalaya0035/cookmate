@@ -22,3 +22,17 @@
     outline: none;
     /* border: 1px solid #6250a6 ; */
 }
+
+
+/* searchResults.js css */
+.searchResults{
+    width: 450px;
+    height:auto;
+    padding: 15px;
+    padding-bottom: 0px;
+    background: white;
+    position: absolute;
+    border-radius: 20px;
+    margin-top: 15px;
+    box-shadow: 1px 2px 5px 0px rgba(0,0,0,0.15);
+}

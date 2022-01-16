@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import Button from "../../Components/Button/Button";
 import HeaderWithBackButton from "../../Components/HeaderWithBackButton/HeaderWithBackButton";
 import "./CreateRecipePage.css";
@@ -39,6 +39,15 @@ function CreateRecipePage() {
   const [instructions, setInstructions] = useState(instructionsArray);
   const [ingredients, setIngredients] = useState(ingredientsArray);
 
+  useEffect(() => {
+    if (!window.localStorage.getItem('userData')){
+      window.location.href = '/login'
+    }
+    return () => {
+      
+    }
+  }, [])
+  
   const addInstruction = () => {
     setInstructions((s) => {
       return [
@@ -137,8 +146,15 @@ function CreateRecipePage() {
     uploadData.append('imageThree',imageThree,imageThree.name)
     uploadData.append('instructions',JSON.stringify(instructions))
     uploadData.append('ingredients',JSON.stringify(ingredients))
+    const userData = JSON.parse(window.localStorage.getItem('userData'))
+    let authenticationToken;
+    if (userData.hasOwnProperty('token')){
+      authenticationToken = userData.token
+    }else{
+      authenticationToken = userData.access
+    }
     const config = {
-      headers: { Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('userData')).access}` }
+      headers: { Authorization: `Bearer ${authenticationToken}` }
     };
     const request = await axios.post('http://127.0.0.1:8000/api/recipe/create',uploadData,config);
     window.location.href = '/'
